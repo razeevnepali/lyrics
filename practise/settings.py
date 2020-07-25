@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'webapp',
 ]
 
 MIDDLEWARE = [
@@ -75,14 +73,14 @@ WSGI_APPLICATION = 'practise.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'example',
-        'USER': 'admin',
-        'PASSWORD': 'rajiv123'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': 'example',
+#         'USER': 'admin',
+#         'PASSWORD': 'rajiv123'
+#     }
+# }
 
 
 # Password validation
@@ -109,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -118,7 +116,10 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
 
-STATIC_URL = '/static/'
+try:
+    from .local_settings import *
+except ImportError:
+    pass
