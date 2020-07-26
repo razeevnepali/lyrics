@@ -5,9 +5,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from . models import Lyrics
-from . serializers import LyricsSerializer 
+from . serializers import LyricsSerializer, UserSerializer
 from rest_framework import mixins
 from rest_framework import generics
+from django.contrib.auth.models import User
+
+
 
 # Create your views here.
     # """
@@ -92,7 +95,19 @@ class LyricsList(generics.ListCreateAPIView):
     queryset = Lyrics.objects.all()
     serializer_class = LyricsSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class LyricsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Lyrics.objects.all()
     serializer_class = LyricsSerializer
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
